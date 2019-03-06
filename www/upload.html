@@ -24,14 +24,14 @@
     <!-- app CSS -->
     <link id="theme" rel="stylesheet" href="css/style.css" type="text/css">
 
-<style>
-#estado p{
-  -webkit-transition: all 0.5s ease-out;
-  -moz-transition: all 0.5s ease-out;
-  -o-transition: all 0.5s ease-out;
-  transition: all 0.5s ease-out;
-}
-</style>
+    <style>
+    #estado p{
+      -webkit-transition: all 0.5s ease-out;
+      -moz-transition: all 0.5s ease-out;
+      -o-transition: all 0.5s ease-out;
+      transition: all 0.5s ease-out;
+    }
+    </style>
     <title>EncuestaRM</title>
 </head>
 
@@ -43,7 +43,7 @@
             <div class="profile-link">
                 <a href="#" class="media">
                     <div class="media-body">
-                        <h5 class=" mb-0">Usuario <span class="status-online bg-success"></span></h5>
+                        <h5 class=" mb-0" id="username">Usuario <span class="status-online bg-success"></span></h5>
 
                     </div>
                 </a>
@@ -58,7 +58,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="update.html" class="sidebar-close">
+                        <a href="upload.html" class="sidebar-close">
                             <div class="item-title">
                                 <i class="material-icons">star</i> Actualizar datos
                             </div>
@@ -77,7 +77,7 @@
 
             <header class="row m-0 fixed-header">
                 <div class="left">
-                    <!--<a href="javascript:void(0)" class="menu-left"><i class="material-icons">menu</i></a>-->
+                    <a href="javascript:void(0)" class="menu-left"><i class="material-icons">menu</i></a>
                 </div>
                 <div class="col center">
                     <a href="" class="logo">
@@ -91,7 +91,8 @@
                 <div class="content-sticky-footer">
                     <div class="row mx-0 h-100 justify-content-center">
                         <div class="col-10 col-md-8 col-lg-4 mx-auto text-center align-self-center pt-5">
-                            <h1 class="text-warning">Iniciando...</h1>
+                            <h1 class="text-warning">Subiendo datos...</h1>
+                            <p>Estamos copiando los datos al servidor. Verificá que tenés acceso a internet (WiFi o 3G/4G) y esperá unos minutos.</p>
                             <div id="estado"></div>
                         </div>
                     </div>
@@ -138,7 +139,7 @@
     <script src="js/main.js"></script>
 
     <!-- page specific script -->
-  <script src="js/index.js"></script>
+  <script src="js/upload.js"></script>
 </body>
 
 </html>

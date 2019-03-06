@@ -43,7 +43,7 @@
             <div class="profile-link">
                 <a href="#" class="media">
                     <div class="media-body">
-                        <h5 class=" mb-0">Usuario <span class="status-online bg-success"></span></h5>
+                        <h5 class=" mb-0" id="username">Usuario <span class="status-online bg-success"></span></h5>
 
                     </div>
                 </a>
@@ -58,8 +58,8 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="update.html" class="sidebar-close">
-                            <div class="item-title">
+                        <a href="upload.html" class="sidebar-close">
+                            <div class="item-title" id="pendientes">
                                 <i class="material-icons">star</i> Actualizar datos
                             </div>
                         </a>
@@ -77,7 +77,7 @@
 
             <header class="row m-0 fixed-header">
                 <div class="left">
-                    <!--<a href="javascript:void(0)" class="menu-left"><i class="material-icons">menu</i></a>-->
+                    <a href="javascript:void(0)" class="menu-left"><i class="material-icons">menu</i></a>
                 </div>
                 <div class="col center">
                     <a href="" class="logo">
@@ -89,12 +89,8 @@
             </header>
             <div class="page-content">
                 <div class="content-sticky-footer">
-                    <div class="row mx-0 h-100 justify-content-center">
-                        <div class="col-10 col-md-8 col-lg-4 mx-auto text-center align-self-center pt-5">
-                            <h1 class="text-warning">Iniciando...</h1>
-                            <div id="estado"></div>
-                        </div>
-                    </div>
+                    <h2 class="block-title" id="title">Cerrando sesion...</h2>
+                    <div class="w-100" id="content"></div>
                 </div>
                 <div class="footer-wrapper shadow-15">
 
@@ -137,8 +133,10 @@
     <!-- Application main common jquery file -->
     <script src="js/main.js"></script>
 
-    <!-- page specific script -->
-  <script src="js/index.js"></script>
 </body>
 
 </html>
+<script>
+window.localStorage.clear();
+window.location.href="index.html";
+</script>
