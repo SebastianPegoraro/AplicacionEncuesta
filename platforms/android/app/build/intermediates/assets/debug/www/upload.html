@@ -1,0 +1,145 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, shrink-to-fit=no, viewport-fit=cover">
+    <meta http-equiv="Content-Security-Policy" content="default-src *; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data:">
+
+      <meta name="format-detection" content="telephone=no">
+      <meta name="msapplication-tap-highlight" content="no">
+
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+    <!-- Material design icons CSS -->
+    <link rel="stylesheet" href="css/materializeicon/material-icons.css">
+
+    <!-- swiper carousel CSS -->
+    <link rel="stylesheet" href="css/swiper.min.css">
+
+    <!-- app CSS -->
+    <link id="theme" rel="stylesheet" href="css/style.css" type="text/css">
+
+    <style>
+    #estado p{
+      -webkit-transition: all 0.5s ease-out;
+      -moz-transition: all 0.5s ease-out;
+      -o-transition: all 0.5s ease-out;
+      transition: all 0.5s ease-out;
+    }
+    </style>
+    <title>EncuestaRM</title>
+</head>
+
+<body class="color-theme-blue push-content-right theme-light">
+
+    <div class="wrapper">
+        <!-- sidebar left start -->
+        <div class="sidebar sidebar-left">
+            <div class="profile-link">
+                <a href="#" class="media">
+                    <div class="media-body">
+                        <h5 class=" mb-0" id="username">Usuario <span class="status-online bg-success"></span></h5>
+
+                    </div>
+                </a>
+            </div>
+            <nav class="navbar">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a href="content.html" class="sidebar-close">
+                            <div class="item-title">
+                                <i class="material-icons">poll</i> Encuestas
+                            </div>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="upload.html" class="sidebar-close">
+                            <div class="item-title">
+                                <i class="material-icons">star</i> Actualizar datos
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="profile-link text-center">
+                <a href="logout.html" class="btn btn-link text-white btn-block">Cerrar Sesion</a>
+            </div>
+        </div>
+        <!-- sidebar left ends -->
+
+        <!-- page main start -->
+        <div class="page">
+
+            <header class="row m-0 fixed-header">
+                <div class="left">
+                    <a href="javascript:void(0)" class="menu-left"><i class="material-icons">menu</i></a>
+                </div>
+                <div class="col center">
+                    <a href="" class="logo">
+                        <figure></figure> EncuestaRM</a>
+                </div>
+                <div class="right">
+
+                </div>
+            </header>
+            <div class="page-content">
+                <div class="content-sticky-footer">
+                    <div class="row mx-0 h-100 justify-content-center">
+                        <div class="col-10 col-md-8 col-lg-4 mx-auto text-center align-self-center pt-5">
+                            <h1 class="text-warning">Subiendo datos...</h1>
+                            <p>Estamos copiando los datos al servidor. Verificá que tenés acceso a internet (WiFi o 3G/4G) y esperá unos minutos.</p>
+                            <div id="estado"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-wrapper shadow-15">
+
+                    <div class="footer dark">
+                        <div class="row mx-0">
+                            <div class="col  text-center">
+                                Copyright @2019, Martin Ebel
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- page main ends -->
+
+    </div>
+
+
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script type="text/javascript" src="cordova.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Cookie jquery file -->
+    <script src="js/jquery.cookie.js"></script>
+
+    <!-- sparklines chart jquery file -->
+    <script src="js/jquery.sparkline.min.js"></script>
+
+    <!-- Circular progress gauge jquery file -->
+    <script src="js/circle-progress.min.js"></script>
+
+    <!-- Swiper carousel jquery file -->
+    <script src="js/swiper.min.js"></script>
+
+    <!-- Application main common jquery file -->
+    <script src="js/main.js"></script>
+
+    <!-- page specific script -->
+  <script src="js/upload.js"></script>
+</body>
+
+</html>
