@@ -4,7 +4,7 @@ var db = null;
 document.addEventListener("deviceready", onDeviceReady, false);
 
 function onDeviceReady() {
-db = window.sqlitePlugin.openDatabase({ name: 'c2mrappencuesta', location: 'default' }, function (db) {
+db = window.sqlitePlugin.openDatabase({ name: 'encuesta.db', location: 'default' }, function (db) {
 }, function (error) {
     alert('Open database ERROR: ' + JSON.stringify(error));
 });
@@ -17,7 +17,7 @@ $("#submit").on("click",function(){
       var query = "SELECT * from usuarios where nombre=? and password=?";
 
       tx.executeSql(query, [$("#usuario").val(),$("#pass").val()], function (tx, resultSet) {
-        
+
         if(resultSet.rows.length==0)
         {
           $("#error").css("display","block");

@@ -1,4 +1,4 @@
-#Fri Mar 22 20:06:08 ART 2019
-base.0=D\:\\xampp2\\htdocs\\AplicacionEncuesta\\platforms\\android\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
+#Thu Mar 28 09:54:31 ART 2019
+base.0=C\:\\xampp\\htdocs\\AplicacionEncuesta\\platforms\\android\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
 path.0=classes.dex
 renamed.0=classes.dex
