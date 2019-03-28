@@ -9,6 +9,9 @@
   "installed_plugins": {
     "cordova-plugin-whitelist": {
       "PACKAGE_NAME": "com.example.appencuesta"
+    },
+    "cordova-plugin-sqlite-2": {
+      "PACKAGE_NAME": "com.example.appencuesta"
     }
   },
   "dependent_plugins": {}

@@ -6,16 +6,16 @@ document.addEventListener("deviceready", onDeviceReady, false);
 //devuelve filas, tengo que conectarme al servidor y leer los datos.
 function onDeviceReady() {
 mensaje("Comprobando datos");
-  var db = window.sqlitePlugin.openDatabase({ name: 'c2mrappencuesta', location: 'default' }, function (db) {
+  var db = window.sqlitePlugin.openDatabase({ name: 'encuesta.db', location: 'default' }, function (db) {
 //crear las tablas si no existen (Verificar que esten todas las tablas!)
     db.executeSql('CREATE TABLE  elecciones (id INTEGER,descripcion)');
     db.executeSql('CREATE TABLE  encuestas (id INTEGER,titulo,fecha_inicio,fecha_cierre,fecha_creacion)');
-    db.executeSql('CREATE TABLE  encuestas_x_usuario (encuesta_id INTEGER, usuario_id)');
+    db.executeSql('CREATE TABLE  encuestas_x_usuario (encuesta_id INTEGER,usuario_id INTEGER)');
     db.executeSql('CREATE TABLE  opciones (id INTEGER,eleccion_id,tipo_id,pregunta_id)');
     db.executeSql('CREATE TABLE  preguntas (id INTEGER,descripcion,encuesta_id)');
-    db.executeSql('CREATE TABLE  respuestas (id INTEGER,opcion_id, estado)');
+    db.executeSql('CREATE TABLE  respuestas (id INTEGER,opcion_id INTEGER,estado)');
     db.executeSql('CREATE TABLE  tipos (id INTEGER,clase)');
-    db.executeSql('CREATE TABLE  usuarios (idUsuario INTEGER,nombre,password,tipo)');
+    db.executeSql('CREATE TABLE  usuarios (id INTEGER,nombre,password,tipo)');
 
     mensaje("Leyendo datos");
 

@@ -13,15 +13,19 @@ function onDeviceReady() {
   $("#title").html("Encuestas");
  db = window.sqlitePlugin.openDatabase({ name: 'c2mrappencuesta', location: 'default' }, function (db) {
     db.transaction(function(tx) {
-    tx.executeSql('SELECT preguntas.encuesta_id,encuestas.titulo,count(*) as cantpreguntas FROM preguntas inner join encuestas on encuestas.id=preguntas.encuesta_id group by preguntas.encuesta_id,encuestas.titulo', [], function(tx, resultSet) {
+    // SELECT preguntas.encuesta_id,encuestas.titulo,count(*) as cantpreguntas
+      // FROM encuesta_x_usuario inner join encuestas on encuestas.id=encuesta_x_usuario.encuesta_id
+      // inner join preguntas on preguntas.encuesta_id=encuestas.id
+      // where usuario_id='+localStorage.getItem("idUsuario")+' group by preguntas.encuesta_id,encuestas.titulo
+      tx.executeSql('SELECT preguntas.encuesta_id,encuestas.titulo,count(*) as cantpreguntas FROM preguntas inner join encuestas on encuestas.id=preguntas.encuesta_id group by preguntas.encuesta_id,encuestas.titulo', [], function(tx, resultSet) {
 
-      for(var x = 0; x < resultSet.rows.length; x++) {
-              $("#content").append('<ul class="list-group mb-4 media-list"><li class="list-group-item"><a href="#" class="media shadow-15 start"  data-preguntas="'+(resultSet.rows.item(x).cantpreguntas-1)+'" data-id="'+resultSet.rows.item(x).encuesta_id+'" data-title="'+resultSet.rows.item(x).titulo+'"><div class="media-body"><h3>'+resultSet.rows.item(x).titulo+'</h3><p>'+resultSet.rows.item(x).cantpreguntas+' preguntas</p></div></a></li></ul>');
-          }
-pendientes();
-    }, function(tx, error) {
-      mensaje('SELECT error: ' + error.message);
-    });
+        for(var x = 0; x < resultSet.rows.length; x++) {
+          $("#content").append('<ul class="list-group mb-4 media-list"><li class="list-group-item"><a href="#" class="media shadow-15 start"  data-preguntas="'+(resultSet.rows.item(x).cantpreguntas-1)+'" data-id="'+resultSet.rows.item(x).encuesta_id+'" data-title="'+resultSet.rows.item(x).titulo+'"><div class="media-body"><h3>'+resultSet.rows.item(x).titulo+'</h3><p>'+resultSet.rows.item(x).cantpreguntas+' preguntas</p></div></a></li></ul>');
+        }
+        pendientes();
+      }, function(tx, error) {
+        mensaje('SELECT error: ' + error.message);
+      });
   });
 
 
@@ -39,17 +43,18 @@ setea las variables currentEncuesta y totalPreguntas
 obtiene un listado de las preguntas para dicha encuesta
 ************************************************/
 $(document).on('click', '.start', function () {
-   totalPreguntas=0;
-   currentPregunta=0;
-   currentEncuesta=0;
-   tituloEncuesta="";
-   arrayPreguntas = new Array();
-   arrayResultados  = new Array();
-    currentEncuesta=$(this).data("id");
-    totalPreguntas=$(this).data("preguntas");
-      $("#title").html($(this).data("title"));
-    getPreguntas(currentEncuesta);
-//ToDo: mostrar titulo de la encuesta en algun lado
+   
+  totalPreguntas=0;
+  currentPregunta=0;
+  currentEncuesta=0;
+  tituloEncuesta="";
+  arrayPreguntas = new Array();
+  arrayResultados  = new Array();
+  currentEncuesta=$(this).data("id");
+  totalPreguntas=$(this).data("preguntas");
+  $("#title").html($(this).data("title"));
+  getPreguntas(currentEncuesta);
+  //ToDo: mostrar titulo de la encuesta en algun lado
 });
 
 /************************************************
@@ -64,16 +69,16 @@ function getEncuestas()
 {
     $("#title").html("Encuestas");
   db.transaction(function(tx) {
-  tx.executeSql('SELECT preguntas.encuesta_id,encuestas.titulo,count(*) as cantpreguntas FROM preguntas inner join encuestas on encuestas.id=preguntas.encuesta_id group by preguntas.encuesta_id,encuestas.titulo', [], function(tx, resultSet) {
+    tx.executeSql('SELECT preguntas.encuesta_id,encuestas.titulo,count(*) as cantpreguntas FROM preguntas inner join encuestas on encuestas.id=preguntas.encuesta_id group by preguntas.encuesta_id,encuestas.titulo', [], function(tx, resultSet) {
 
-    for(var x = 0; x < resultSet.rows.length; x++) {
-            $("#content").append('<ul class="list-group mb-4 media-list"><li class="list-group-item"><a href="#" class="media shadow-15 start"  data-preguntas="'+(resultSet.rows.item(x).cantpreguntas-1)+'" data-id="'+resultSet.rows.item(x).encuesta_id+'" data-title="'+resultSet.rows.item(x).titulo+'"><div class="media-body"><h3>'+resultSet.rows.item(x).titulo+'</h3><p>'+resultSet.rows.item(x).cantpreguntas+' preguntas</p></div></a></li></ul>');
-        }
-pendientes();
-  }, function(tx, error) {
-    mensaje('SELECT error: ' + error.message);
+      for(var x = 0; x < resultSet.rows.length; x++) {
+        $("#content").append('<ul class="list-group mb-4 media-list"><li class="list-group-item"><a href="#" class="media shadow-15 start"  data-preguntas="'+(resultSet.rows.item(x).cantpreguntas-1)+'" data-id="'+resultSet.rows.item(x).encuesta_id+'" data-title="'+resultSet.rows.item(x).titulo+'"><div class="media-body"><h3>'+resultSet.rows.item(x).titulo+'</h3><p>'+resultSet.rows.item(x).cantpreguntas+' preguntas</p></div></a></li></ul>');
+      }
+      pendientes();
+    }, function(tx, error) {
+      mensaje('SELECT error: ' + error.message);
+    });
   });
-});
 }
 
 /************************************************
@@ -151,7 +156,7 @@ function getPreguntaOpciones()
   {
     db.transaction(function (tx) {
 
-           var query = "SELECT  elecciones.id,elecciones.descripcion,tipos.clase,tipos.id as idclase,opciones.pregunta_id from opciones inner join elecciones on elecciones.id=opciones.eleccion_id inner join tipos on tipos.id=opciones.tipo_id";
+      query = "SELECT  opciones.id,elecciones.descripcion,tipos.clase,tipos.id as idclase,opciones.pregunta_id from opciones inner join elecciones on elecciones.id=opciones.eleccion_id inner join tipos on tipos.id=opciones.tipo_id ";
 
            tx.executeSql(query, [], function (tx, resultSet) {
              $("#content").empty();
@@ -208,7 +213,7 @@ function getPreguntaOpciones()
 function pendientes()
 {
   db.transaction(function(tx) {
-  tx.executeSql('SELECT count(*) AS mycount FROM opciones where estado is not null', [], function(tx, rs) {
+    tx.executeSql('SELECT count(*) AS mycount FROM respuestas where estado is not null', [], function(tx, rs) {
     $("#pendientes").html('<i class="material-icons">star</i> Actualizar datos <span class="badge badge-secondary">'+rs.rows.item(0).mycount+'</span>');
   }, function(tx, error) {
     mensaje('SELECT error: ' + error.message);
@@ -220,7 +225,7 @@ function saveResults()
 {
 
   db.transaction(function(tx) {
-  tx.executeSql('SELECT max(id) AS mycount FROM opciones', [], function(tx, rs) {
+    tx.executeSql('SELECT max(id) AS mycount FROM respuestas', [], function(tx, rs) {
     //mensaje("filas: "+rs.rows.item(0).mycount);
     maximo=rs.rows.item(0).mycount;
     maximo++;
@@ -231,7 +236,7 @@ function saveResults()
 
   db.transaction(function(tx) {
     $.each(arrayResultados, function(i, item) {
-      tx.executeSql("INSERT INTO opciones values (?,?,?,?)", [maximo,item.eleccion_id,item.tipo_id,item.pregunta_id]);
+      tx.executeSql("INSERT INTO respuestas values (?,?,?)", [maximo,item.eleccion_id,item.estado]);
       maximo++;
     });
   }, function(e) {
