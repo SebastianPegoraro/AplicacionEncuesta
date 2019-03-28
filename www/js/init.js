@@ -13,6 +13,7 @@ function onDeviceReady() {
   //las respuestas NO hay que copiarlas del servidor!
   //respuestas();
   usuarios();
+
 }
 
 function elecciones()
@@ -183,38 +184,6 @@ function tipos()
   }, function (error) {
     mensaje("Error abriendo BD: "+ JSON.stringify(error));
   });
-}
-
-function respuestas()
-{
-var db = window.sqlitePlugin.openDatabase({ name: 'encuesta.db', location: 'default' }, function (db) {
-
-  $.ajax({
-              url: urlAPI+"API.php?tabla=respuestas",
-              dataType: "json",
-              async: false,
-              success: function(res) {
-              //  mensaje("Copiando datos 6/6");
-                db.transaction(function(tx) {
-                  $.each(res, function(i, item) {
-                    tx.executeSql("INSERT INTO respuestas values (?,?,?)", [item.id,item.opcion_id,item.estado]);
-
-                  });
-                }, function(e) {
-                  mensaje('Transaction error7: ' + e.message);
-                  alert('Transaction error7: ' + e.message);
-                }, function() {  });
-              },
-              error: function(e) {
-                  mensaje('ajax error: ' + JSON.stringify(e));
-                  alert('ajax error: ' + JSON.stringify(e));
-              }
-          });
-
-
-}, function (error) {
-mensaje("Error abriendo BD: "+ JSON.stringify(error));
-});
 }
 
 function usuarios()

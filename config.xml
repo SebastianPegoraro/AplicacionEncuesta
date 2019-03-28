@@ -32,5 +32,4 @@
     </feature>
     <plugin name="cordova-sqlite-storage" spec="^2.6.0" />
     <engine name="android" spec="^7.1.4" />
-    <plugin name="cordova-plugin-sqlite-2" spec="^1.0.6" />
 </widget>

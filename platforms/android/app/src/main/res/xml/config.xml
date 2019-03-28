@@ -5,15 +5,9 @@
         <param name="onload" value="true" />
     </feature>
     <feature name="SQLitePlugin">
-<<<<<<< HEAD
-        <param name="android-package" value="com.nolanlawson.cordova.sqlite.SQLitePlugin" />
-    </feature>
-    <name>AppEncuesta</name>
-=======
         <param name="android-package" value="io.sqlc.SQLitePlugin" />
     </feature>
     <name>EncuestaRM</name>
->>>>>>> 47318c7254cfaf98a6daf68eb80ee846bde0cfd7
     <description>
         Aplicacion para utilizar el Sistema de Encuestas.
     </description>
