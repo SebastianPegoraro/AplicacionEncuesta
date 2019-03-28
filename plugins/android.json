@@ -8,10 +8,10 @@
   },
   "installed_plugins": {
     "cordova-plugin-whitelist": {
-      "PACKAGE_NAME": "com.example.appencuesta"
+      "PACKAGE_NAME": "com.encuesta.rm"
     },
-    "cordova-plugin-sqlite-2": {
-      "PACKAGE_NAME": "com.example.appencuesta"
+    "cordova-sqlite-storage": {
+      "PACKAGE_NAME": "com.encuesta.rm"
     }
   },
   "dependent_plugins": {}

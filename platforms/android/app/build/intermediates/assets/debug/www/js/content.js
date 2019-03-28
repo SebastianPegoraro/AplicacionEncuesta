@@ -11,9 +11,15 @@ document.addEventListener("deviceready", onDeviceReady, false);
 
 function onDeviceReady() {
   $("#title").html("Encuestas");
- db = window.sqlitePlugin.openDatabase({ name: 'c2mrappencuesta', location: 'default' }, function (db) {
+  db = window.sqlitePlugin.openDatabase({ name: 'encuesta.db', location: 'default' }, function (db) {
     db.transaction(function(tx) {
+<<<<<<< HEAD
     // SELECT preguntas.encuesta_id,encuestas.titulo,count(*) as cantpreguntas
+=======
+      //Para filtrar por usuario:
+
+      // SELECT preguntas.encuesta_id,encuestas.titulo,count(*) as cantpreguntas
+>>>>>>> 47318c7254cfaf98a6daf68eb80ee846bde0cfd7
       // FROM encuesta_x_usuario inner join encuestas on encuestas.id=encuesta_x_usuario.encuesta_id
       // inner join preguntas on preguntas.encuesta_id=encuestas.id
       // where usuario_id='+localStorage.getItem("idUsuario")+' group by preguntas.encuesta_id,encuestas.titulo
@@ -26,13 +32,17 @@ function onDeviceReady() {
       }, function(tx, error) {
         mensaje('SELECT error: ' + error.message);
       });
+<<<<<<< HEAD
   });
+=======
+    });
+>>>>>>> 47318c7254cfaf98a6daf68eb80ee846bde0cfd7
 
 
 
-}, function (error) {
-  mensaje("Error abriendo BD: "+ JSON.stringify(error));
-});
+  }, function (error) {
+    mensaje("Error abriendo BD: "+ JSON.stringify(error));
+  });
 }
 
 
@@ -43,7 +53,10 @@ setea las variables currentEncuesta y totalPreguntas
 obtiene un listado de las preguntas para dicha encuesta
 ************************************************/
 $(document).on('click', '.start', function () {
+<<<<<<< HEAD
    
+=======
+>>>>>>> 47318c7254cfaf98a6daf68eb80ee846bde0cfd7
   totalPreguntas=0;
   currentPregunta=0;
   currentEncuesta=0;
@@ -62,12 +75,12 @@ esto responde al click del boton Continuar
 trae la siguiente pregunta
 ************************************************/
 $(document).on('click', '.continue', function () {
-    getPreguntaOpciones();
+  getPreguntaOpciones();
 });
 
 function getEncuestas()
 {
-    $("#title").html("Encuestas");
+  $("#title").html("Encuestas");
   db.transaction(function(tx) {
     tx.executeSql('SELECT preguntas.encuesta_id,encuestas.titulo,count(*) as cantpreguntas FROM preguntas inner join encuestas on encuestas.id=preguntas.encuesta_id group by preguntas.encuesta_id,encuestas.titulo', [], function(tx, resultSet) {
 
@@ -90,32 +103,32 @@ ToDo: modificar URL de la API
 function getPreguntas(idEncuesta)
 {
 
-db.transaction(function (tx) {
+  db.transaction(function (tx) {
 
-       var query = "SELECT * from preguntas";
+    var query = "SELECT * from preguntas";
 
-       tx.executeSql(query, [], function (tx, resultSet) {
-         //$("#content").empty();
-         //alert(idEncuesta);
-           for(var x = 0; x < resultSet.rows.length; x++) {
-             if(resultSet.rows.item(x).encuesta_id==idEncuesta){
-               //alert(resultSet.rows.item(x).descripcion)
-               arrayPreguntas.push({id: resultSet.rows.item(x).id,nombre: resultSet.rows.item(x).descripcion});
-               currentPregunta=0;
-             }
-           //arrayPreguntas.push(resultSet.rows.item(x));
-           //currentPregunta=0;
-           }
-       },
-       function (tx, error) {
-           mensaje('SELECT error: ' + error.message);
-       });
-   }, function (error) {
-       mensaje('transaction error: ' + error.message);
-   }, function () {
-     //obtengo la primer pregunta
-     getPreguntaOpciones();
-   });
+    tx.executeSql(query, [], function (tx, resultSet) {
+      //$("#content").empty();
+      //alert(idEncuesta);
+      for(var x = 0; x < resultSet.rows.length; x++) {
+        if(resultSet.rows.item(x).encuesta_id==idEncuesta){
+          //alert(resultSet.rows.item(x).descripcion)
+          arrayPreguntas.push({id: resultSet.rows.item(x).id,nombre: resultSet.rows.item(x).descripcion});
+          currentPregunta=0;
+        }
+        //arrayPreguntas.push(resultSet.rows.item(x));
+        //currentPregunta=0;
+      }
+    },
+    function (tx, error) {
+      mensaje('SELECT error: ' + error.message);
+    });
+  }, function (error) {
+    mensaje('transaction error: ' + error.message);
+  }, function () {
+    //obtengo la primer pregunta
+    getPreguntaOpciones();
+  });
 }
 
 /************************************************
@@ -135,27 +148,29 @@ function getPreguntaOpciones()
     $('#content').children('input').each(function () { //para cada elemento del div
       switch ($(this).attr('type')) { //segun el tipo del elemento
         case "radio":
-          if($(this).is(':checked')){ //si es radio y esta checked
-            arrayResultados.push({eleccion_id : $(this).data("eleccion"), tipo_id : $(this).data("clase"), pregunta_id: $(this).data("pregunta"), estado:'1'});
-          }
-          break;
-          case "checkbox":
-            if($(this).is(':checked')){ //si es checkbox y esta checked
-              arrayResultados.push({eleccion_id : $(this).data("eleccion"), tipo_id : $(this).data("clase"), pregunta_id: $(this).data("pregunta"), estado:'1'});
-            }
-            break;
-            case "text": //si es text
-                arrayResultados.push({eleccion_id : $(this).data("eleccion"), tipo_id : $(this).data("clase"), pregunta_id: $(this).data("pregunta"), estado:$(this).val()});
-              break;
+        if($(this).is(':checked')){ //si es radio y esta checked
+          arrayResultados.push({eleccion_id : $(this).data("eleccion"), tipo_id : $(this).data("clase"), pregunta_id: $(this).data("pregunta"), estado:'1'});
+        }
+        break;
+        case "checkbox":
+        if($(this).is(':checked')){ //si es checkbox y esta checked
+          arrayResultados.push({eleccion_id : $(this).data("eleccion"), tipo_id : $(this).data("clase"), pregunta_id: $(this).data("pregunta"), estado:'1'});
+        }
+        break;
+        case "text": //si es text
+        arrayResultados.push({eleccion_id : $(this).data("eleccion"), tipo_id : $(this).data("clase"), pregunta_id: $(this).data("pregunta"), estado:$(this).val()});
+        break;
+
       }
-});
+    });
 
   }
-//si NO estoy en la ultima pregunta
+  //si NO estoy en la ultima pregunta
   if(currentPregunta<=totalPreguntas)
   {
     db.transaction(function (tx) {
 
+<<<<<<< HEAD
       query = "SELECT  opciones.id,elecciones.descripcion,tipos.clase,tipos.id as idclase,opciones.pregunta_id from opciones inner join elecciones on elecciones.id=opciones.eleccion_id inner join tipos on tipos.id=opciones.tipo_id ";
 
            tx.executeSql(query, [], function (tx, resultSet) {
@@ -196,12 +211,56 @@ function getPreguntaOpciones()
        //muestro el boton Continuar
        $("#content").append('<hr><a href="#" class="btn btn-success continue">Continuar</a>');
        });
+=======
+      var query = "SELECT  opciones.id,elecciones.descripcion,tipos.clase,tipos.id as idclase,opciones.pregunta_id from opciones inner join elecciones on elecciones.id=opciones.eleccion_id inner join tipos on tipos.id=opciones.tipo_id ";
+
+      tx.executeSql(query, [], function (tx, resultSet) {
+        $("#content").empty();
+        $("#content").append('<legend>'+arrayPreguntas[currentPregunta].nombre+'</legend>'); //titulo
+
+        for(var x = 0; x < resultSet.rows.length; x++) {
+
+          if(resultSet.rows.item(x).pregunta_id==arrayPreguntas[currentPregunta].id){
+
+            //mostrar mis opciones para esta pregunta
+            switch (resultSet.rows.item(x).clase) { //segun el tipo mostrar el control adecuado
+              //en cada elemento se agregan atributos para mantener informaion importante
+              //data-pregunta: el id de la pregunta
+              //data-eleccion: el id de la opcion (respuesta)
+              //data-clase: el id del tipo de objeto (check, radio, text, etc)
+              //ToDo: modificar el append para mejorar el diseño
+              case 'checkbox':
+              $("#content").append('<input type="checkbox" id="option'+resultSet.rows.item(x).id+'" value="'+resultSet.rows.item(x).id+'" data-pregunta="'+arrayPreguntas[currentPregunta].id+'" data-eleccion="'+resultSet.rows.item(x).id+'" data-clase="'+resultSet.rows.item(x).idclase+'" > '+resultSet.rows.item(x).descripcion+'<br>');
+              break;
+              case 'radio':
+              $("#content").append('<input type="radio" id="option'+resultSet.rows.item(x).id+'" value="'+resultSet.rows.item(x).id+'" data-pregunta="'+arrayPreguntas[currentPregunta].id+'" data-eleccion="'+resultSet.rows.item(x).id+'" data-clase="'+resultSet.rows.item(x).idclase+'"> '+resultSet.rows.item(x).descripcion+'<br>');
+              break;
+              case 'text':
+              $("#content").append('<p>'+resultSet.rows.item(x).descripcion+'</p><input type="text" id="option'+resultSet.rows.item(x).id+'" data-pregunta="'+arrayPreguntas[currentPregunta].id+'" data-eleccion="'+resultSet.rows.item(x).id+'" data-clase="'+resultSet.rows.item(x).idclase+'"><br>');
+              break;
+            }
+
+
+          }
+        }
+      },
+      function (tx, error) {
+        mensaje('SELECT error: ' + error.message);
+      });
+    }, function (error) {
+      mensaje('transaction error: ' + error.message);
+    }, function () {
+      currentPregunta++; //incremento la posicion de la pregunta actual (para la proxima vez que se llame)
+      //muestro el boton Continuar
+      $("#content").append('<hr><a href="#" class="btn btn-success continue">Continuar</a>');
+    });
+>>>>>>> 47318c7254cfaf98a6daf68eb80ee846bde0cfd7
 
   }
   else {
     //llegue al final de la encuesta
     //guardo los resultados
-  saveResults();
+    saveResults();
 
     //vaciar el div
     $("#content").empty();
@@ -214,11 +273,17 @@ function pendientes()
 {
   db.transaction(function(tx) {
     tx.executeSql('SELECT count(*) AS mycount FROM respuestas where estado is not null', [], function(tx, rs) {
+<<<<<<< HEAD
     $("#pendientes").html('<i class="material-icons">star</i> Actualizar datos <span class="badge badge-secondary">'+rs.rows.item(0).mycount+'</span>');
   }, function(tx, error) {
     mensaje('SELECT error: ' + error.message);
+=======
+      $("#pendientes").html('<i class="material-icons">star</i> Actualizar datos <span class="badge badge-secondary">'+rs.rows.item(0).mycount+'</span>');
+    }, function(tx, error) {
+      mensaje('SELECT error: ' + error.message);
+    });
+>>>>>>> 47318c7254cfaf98a6daf68eb80ee846bde0cfd7
   });
-});
 }
 
 function saveResults()
@@ -226,13 +291,21 @@ function saveResults()
 
   db.transaction(function(tx) {
     tx.executeSql('SELECT max(id) AS mycount FROM respuestas', [], function(tx, rs) {
+<<<<<<< HEAD
     //mensaje("filas: "+rs.rows.item(0).mycount);
     maximo=rs.rows.item(0).mycount;
     maximo++;
   }, function(tx, error) {
     mensaje('SELECT error: ' + error.message);
+=======
+      //mensaje("filas: "+rs.rows.item(0).mycount);
+      maximo=rs.rows.item(0).mycount;
+      maximo++;
+    }, function(tx, error) {
+      mensaje('SELECT error: ' + error.message);
+    });
+>>>>>>> 47318c7254cfaf98a6daf68eb80ee846bde0cfd7
   });
-});
 
   db.transaction(function(tx) {
     $.each(arrayResultados, function(i, item) {
