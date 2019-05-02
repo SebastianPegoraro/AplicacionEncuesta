@@ -205,8 +205,16 @@ function usuarios()
           mensaje('Transaction error8: ' + e.message);
           alert('Transaction error8: ' + e.message);
         }, function() {
-          mensaje("Finalizado");
-          $("#estado").append('<a href="login.html" class="btn btn-block btn-success rounded border-0 z-3">Empezar</a>');
+          if(localStorage.getItem("nombreUsuario")===null) {
+            //no hay nadie logeado, ir al login
+            window.location.href="login.html";
+          }
+          else {
+            //ir al content porque hay alguien logeado
+            window.location.href="content.html";
+          }
+          //mensaje("Finalizado");
+          //  $("#estado").append('<a href="login.html" class="btn btn-block btn-success rounded border-0 z-3">Empezar</a>');
         });
       },
       error: function(e) {

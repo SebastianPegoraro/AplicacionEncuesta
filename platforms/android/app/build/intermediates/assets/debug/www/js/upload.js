@@ -50,7 +50,7 @@ function subirdatos()
       }, function (error) {
         alert('transaction error: ' + error.message);
       }, function () {
-        window.localStorage.clear();
+        //window.localStorage.clear();
         window.location.href="init.html";
       });
 
@@ -70,7 +70,7 @@ function subirdatos()
       }, function (error) {
         alert('transaction error: ' + error.message);
       }, function () {
-        window.localStorage.clear();
+        //window.localStorage.clear();
         window.location.href="init.html";
       });
 
