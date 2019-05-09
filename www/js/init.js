@@ -234,7 +234,7 @@ function encuestas_x_usuario()
   var db = window.sqlitePlugin.openDatabase({ name: 'encuesta.db', location: 'default' }, function (db) {
 
     $.ajax({
-      url: urlAPI+"API.php?tabla=encuestas_x_usuario",
+      url: urlAPI+"API.php?tabla=encuesta_x_usuario",
       dataType: "json",
       async: false,
       success: function(res) {
