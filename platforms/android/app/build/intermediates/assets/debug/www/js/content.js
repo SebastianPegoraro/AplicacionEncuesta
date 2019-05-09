@@ -14,15 +14,13 @@ function onDeviceReady() {
   var consulta="";
   db = window.sqlitePlugin.openDatabase({ name: 'encuesta.db', location: 'default' }, function (db) {
     db.transaction(function(tx) {
-      alert(localStorage.getItem("tipoUsuario"));
-      alert(localStorage.getItem("tipoUsuario")=="Administrador");
       if(localStorage.getItem("tipoUsuario")=="Administrador")
       { //es un admin, entonces traer TODAS las encuestas
         consulta='SELECT preguntas.encuesta_id,encuestas.titulo,count(*) as cantpreguntas FROM preguntas inner join encuestas on encuestas.id=preguntas.encuesta_id group by preguntas.encuesta_id,encuestas.titulo';
       }
       else
       { //no es admin, filtrar por usuario
-        consulta='SELECT preguntas.encuesta_id,encuestas.titulo,count(*) as cantpreguntas FROM encuesta_x_usuario inner join encuestas on encuestas.id=encuesta_x_usuario.encuesta_id inner join preguntas on preguntas.encuesta_id=encuestas.id where usuario_id='+localStorage.getItem("idUsuario")+' group by preguntas.encuesta_id,encuestas.titulo';
+        consulta='SELECT preguntas.encuesta_id,encuestas.titulo,count(*) as cantpreguntas FROM encuestas_x_usuario inner join encuestas on encuestas.id=encuestas_x_usuario.encuesta_id inner join preguntas on preguntas.encuesta_id=encuestas.id where usuario_id='+localStorage.getItem("idUsuario")+' group by preguntas.encuesta_id,encuestas.titulo';
       }
       tx.executeSql(consulta, [], function(tx, resultSet) {
           for(var x = 0; x < resultSet.rows.length; x++) {
@@ -166,7 +164,7 @@ function onDeviceReady() {
 
         tx.executeSql(query, [], function (tx, resultSet) {
           $("#content").empty();
-          $("#content").append('<legend>'+arrayPreguntas[currentPregunta].nombre+'</legend>'); //titulo
+          $("#content").append('<legend>'+arrayPreguntas[currentPregunta].nombre+'</legend><div id="pretty-scale-test" style="font-size: 36px;">'); //titulo
 
           for(var x = 0; x < resultSet.rows.length; x++) {
 
@@ -180,19 +178,20 @@ function onDeviceReady() {
                 //data-clase: el id del tipo de objeto (check, radio, text, etc)
                 //ToDo: modificar el append para mejorar el diseño
                 case 'checkbox':
-                $("#content").append('<input type="checkbox" id="option'+resultSet.rows.item(x).id+'" value="'+resultSet.rows.item(x).id+'" data-pregunta="'+arrayPreguntas[currentPregunta].id+'" data-eleccion="'+resultSet.rows.item(x).id+'" data-clase="'+resultSet.rows.item(x).idclase+'" > '+resultSet.rows.item(x).descripcion+'<br>');
+                $("#content").append('<div class="pretty p-default p-curve p-smooth"><input type="checkbox" id="option'+resultSet.rows.item(x).id+'" value="'+resultSet.rows.item(x).id+'" data-pregunta="'+arrayPreguntas[currentPregunta].id+'" data-eleccion="'+resultSet.rows.item(x).id+'" data-clase="'+resultSet.rows.item(x).idclase+'" /><div class="state p-success"><label>'+resultSet.rows.item(x).descripcion+'</label></div></div>');
                 break;
                 case 'radio':
-                $("#content").append('<input type="radio" id="option'+resultSet.rows.item(x).id+'" value="'+resultSet.rows.item(x).id+'" data-pregunta="'+arrayPreguntas[currentPregunta].id+'" data-eleccion="'+resultSet.rows.item(x).id+'" data-clase="'+resultSet.rows.item(x).idclase+'"> '+resultSet.rows.item(x).descripcion+'<br>');
+                $("#content").append('<div class="pretty p-default p-round p-smooth"><input type="radio" id="option'+resultSet.rows.item(x).id+'" value="'+resultSet.rows.item(x).id+'" data-pregunta="'+arrayPreguntas[currentPregunta].id+'" data-eleccion="'+resultSet.rows.item(x).id+'" data-clase="'+resultSet.rows.item(x).idclase+'" /><div class="state p-success"><label>'+resultSet.rows.item(x).descripcion+'</label></div></div>');
                 break;
                 case 'text':
-                $("#content").append('<p>'+resultSet.rows.item(x).descripcion+'</p><input type="text" id="option'+resultSet.rows.item(x).id+'" data-pregunta="'+arrayPreguntas[currentPregunta].id+'" data-eleccion="'+resultSet.rows.item(x).id+'" data-clase="'+resultSet.rows.item(x).idclase+'"><br>');
+                $("#content").append('<div class="form-group"><label for="option'+resultSet.rows.item(x).id+'">'+resultSet.rows.item(x).descripcion+'</label><input type="text" class="form-control" id="option'+resultSet.rows.item(x).id+'" data-pregunta="'+arrayPreguntas[currentPregunta].id+'" data-eleccion="'+resultSet.rows.item(x).id+'" data-clase="'+resultSet.rows.item(x).idclase+'"></div>');
                 break;
               }
 
 
             }
           }
+          $("#content").append('</div>')
         },
         function (tx, error) {
           mensaje('SELECT error: ' + error.message);
