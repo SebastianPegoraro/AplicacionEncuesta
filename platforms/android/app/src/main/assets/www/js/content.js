@@ -164,7 +164,7 @@ function onDeviceReady() {
 
         tx.executeSql(query, [], function (tx, resultSet) {
           $("#content").empty();
-          $("#content").append('<legend>'+arrayPreguntas[currentPregunta].nombre+'</legend><div id="pretty-scale-test" style="font-size: 36px;">'); //titulo
+          $("#content").append('<legend>'+arrayPreguntas[currentPregunta].nombre+'</legend><div id="pretty-scale-test" style="font-size: 56px;margin-left:35px">'); //titulo
 
           for(var x = 0; x < resultSet.rows.length; x++) {
 
@@ -184,7 +184,7 @@ function onDeviceReady() {
                 $("#content").append('<div class="pretty p-default p-round p-smooth"><input type="radio" id="option'+resultSet.rows.item(x).id+'" value="'+resultSet.rows.item(x).id+'" data-pregunta="'+arrayPreguntas[currentPregunta].id+'" data-eleccion="'+resultSet.rows.item(x).id+'" data-clase="'+resultSet.rows.item(x).idclase+'" /><div class="state p-success"><label>'+resultSet.rows.item(x).descripcion+'</label></div></div>');
                 break;
                 case 'text':
-                $("#content").append('<div class="form-group"><label for="option'+resultSet.rows.item(x).id+'">'+resultSet.rows.item(x).descripcion+'</label><input type="text" class="form-control" id="option'+resultSet.rows.item(x).id+'" data-pregunta="'+arrayPreguntas[currentPregunta].id+'" data-eleccion="'+resultSet.rows.item(x).id+'" data-clase="'+resultSet.rows.item(x).idclase+'"></div>');
+                $("#content").append('<div class="form-group" style="font-size: 15px;"><label for="option'+resultSet.rows.item(x).id+'">'+resultSet.rows.item(x).descripcion+'</label><input type="text" class="form-control" id="option'+resultSet.rows.item(x).id+'" data-pregunta="'+arrayPreguntas[currentPregunta].id+'" data-eleccion="'+resultSet.rows.item(x).id+'" data-clase="'+resultSet.rows.item(x).idclase+'"></div>');
                 break;
               }
 
