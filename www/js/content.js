@@ -164,7 +164,7 @@ function onDeviceReady() {
 
         tx.executeSql(query, [], function (tx, resultSet) {
           $("#content").empty();
-          $("#content").append('<legend>'+arrayPreguntas[currentPregunta].nombre+'</legend><div id="pretty-scale-test" style="font-size: 56px;">'); //titulo
+          $("#content").append('<legend> style="margin-left:15px"'+arrayPreguntas[currentPregunta].nombre+'</legend><div id="pretty-scale-test" style="font-size: 56px;">'); //titulo
 
           for(var x = 0; x < resultSet.rows.length; x++) {
 
@@ -178,10 +178,10 @@ function onDeviceReady() {
                 //data-clase: el id del tipo de objeto (check, radio, text, etc)
                 //ToDo: modificar el append para mejorar el diseño
                 case 'checkbox':
-                $("#content").append('<div class="pretty p-default p-curve p-smooth" style="margin-left:35px"><input type="checkbox" id="option'+resultSet.rows.item(x).id+'" value="'+resultSet.rows.item(x).id+'" data-pregunta="'+arrayPreguntas[currentPregunta].id+'" data-eleccion="'+resultSet.rows.item(x).id+'" data-clase="'+resultSet.rows.item(x).idclase+'" /><div class="state p-success"><label>'+resultSet.rows.item(x).descripcion+'</label></div></div><br>');
+                $("#content").append('<div class="pretty p-default p-curve p-smooth" style="margin-left:35px"><input type="checkbox" id="option'+resultSet.rows.item(x).id+'" value="'+resultSet.rows.item(x).id+'" data-pregunta="'+arrayPreguntas[currentPregunta].id+'" data-eleccion="'+resultSet.rows.item(x).id+'" data-clase="'+resultSet.rows.item(x).idclase+'" /><div class="state p-success"><label>'+resultSet.rows.item(x).descripcion+'</label></div></div><br><br>');
                 break;
                 case 'radio':
-                $("#content").append('<div class="pretty p-default p-round p-smooth"  style="margin-left:35px"><input type="radio" name="radio1" id="option'+resultSet.rows.item(x).id+'" value="'+resultSet.rows.item(x).id+'" data-pregunta="'+arrayPreguntas[currentPregunta].id+'" data-eleccion="'+resultSet.rows.item(x).id+'" data-clase="'+resultSet.rows.item(x).idclase+'" /><div class="state p-success"><label>'+resultSet.rows.item(x).descripcion+'</label></div></div><br>');
+                $("#content").append('<div class="pretty p-default p-round p-smooth"  style="margin-left:35px"><input type="radio" name="radio1" id="option'+resultSet.rows.item(x).id+'" value="'+resultSet.rows.item(x).id+'" data-pregunta="'+arrayPreguntas[currentPregunta].id+'" data-eleccion="'+resultSet.rows.item(x).id+'" data-clase="'+resultSet.rows.item(x).idclase+'" /><div class="state p-success"><label>'+resultSet.rows.item(x).descripcion+'</label></div></div><br><br>');
                 break;
                 case 'text':
                 $("#content").append('<div class="form-group" style="font-size: 15px;"><label for="option'+resultSet.rows.item(x).id+'">'+resultSet.rows.item(x).descripcion+'</label><input type="text" class="form-control" id="option'+resultSet.rows.item(x).id+'" data-pregunta="'+arrayPreguntas[currentPregunta].id+'" data-eleccion="'+resultSet.rows.item(x).id+'" data-clase="'+resultSet.rows.item(x).idclase+'"></div>');
@@ -201,7 +201,7 @@ function onDeviceReady() {
       }, function () {
         currentPregunta++; //incremento la posicion de la pregunta actual (para la proxima vez que se llame)
         //muestro el boton Continuar
-        $("#content").append('<hr><a href="#" class="btn btn-success continue">Continuar</a>');
+        $("#content").append('<hr><a href="#" class="btn btn-success continue" style="margin-left:15px">Continuar</a>');
       });
 
     }
