@@ -178,7 +178,7 @@ else {
     //guardar resultados de las respuestas si ya pasé la primer pregunta
     if(currentPregunta>0)
     {
-        $('#container input').each(function () { //para cada elemento del div
+        $('#content input').each(function () { //para cada elemento del div
         switch ($(this).prop('type')) { //segun el tipo del elemento
           case "radio":
           if($(this).prop('checked')){ //si es radio y esta checked
@@ -244,7 +244,7 @@ else {
       }, function () {
         currentPregunta++; //incremento la posicion de la pregunta actual (para la proxima vez que se llame)
         //muestro el boton Continuar
-        $("#content").append('<hr><a href="#" class="btn btn-warning goback" style="margin-left:15px">Volver</a> <a href="#" class="btn btn-success continue float-right">Continuar</a>');
+        $("#content").append('<hr><a href="#" class="btn btn-warning goback" style="margin-left:15px">Volver</a> <a href="#" class="btn btn-success continue">Continuar</a>');
       });
 
     }
@@ -264,7 +264,7 @@ else {
   function controlarRespuestas()
   {
     var hayOpcionMarcada=false;
-  $('#container input').each(function () { //para cada elemento del div
+  $('#content input').each(function () { //para cada elemento del div
       switch ($(this).prop('type')) { //segun el tipo del elemento
         case "radio":
         case "checkbox":
