@@ -65,8 +65,24 @@ function onDeviceReady() {
   trae la siguiente pregunta
   ************************************************/
   $(document).on('click', '.continue', function () {
-    getPreguntaOpciones();
+    getPreguntaOpciones(true);
   });
+
+/*Boton para ir para atras */
+$(document).on('click', '.goback', function () {
+if(currentPregunta>0){
+  currentPregunta--;
+  getPreguntaOpciones(false);
+}
+else {
+  //vaciar el div
+  $("#content").empty();
+  //cargar las encuestas disponibles
+  getEncuestas();
+}
+});
+
+
 
   function getEncuestas()
   {
@@ -117,7 +133,7 @@ function onDeviceReady() {
       mensaje('transaction error: ' + error.message);
     }, function () {
       //obtengo la primer pregunta
-      getPreguntaOpciones();
+      getPreguntaOpciones(true);
     });
   }
 
@@ -125,12 +141,26 @@ function onDeviceReady() {
   getPreguntaOpciones: obtiene las opciones para una pregunta y las dibuja en el div
   se incrementa de manera automatica  y almacena en un array los resultados
   de la pregunta anterior (si hubo)
-  ToDo: modificar URL de la API
-  ToDo: mejorar diseño en el append
-  ToDo: implementar filtro por usuario
   ************************************************/
-  function getPreguntaOpciones()
+  function getPreguntaOpciones(hayQueControlarRespuestas)
   {
+
+    //si ya tengo cargado un listado de respuestas (es decir, NO es la primera vez que
+  // se ejecuta este método), tengo que controlar que se haya marcado al menos una opcion
+  if((currentPregunta>0)&&(hayQueControlarRespuestas))
+  {
+    if(!controlarRespuestas())
+    {
+      //mostrar error
+      swal({
+        title:"Encuesta",
+        text:"Debe seleccionar una respuesta para poder continuar",
+        type:"error"
+      },
+    	function(){ });
+    return;
+    }
+  }
 
     //guardar resultados de las respuestas si ya pasé la primer pregunta
     if(currentPregunta>0)
@@ -164,7 +194,7 @@ function onDeviceReady() {
 
         tx.executeSql(query, [], function (tx, resultSet) {
           $("#content").empty();
-          $("#content").append('<legend> style="margin-left:15px"'+arrayPreguntas[currentPregunta].nombre+'</legend><div id="pretty-scale-test" style="font-size: 56px;">'); //titulo
+          $("#content").append('<legend style="margin-left:15px">'+arrayPreguntas[currentPregunta].nombre+'</legend><div id="pretty-scale-test" style="font-size: 56px;">'); //titulo
 
           for(var x = 0; x < resultSet.rows.length; x++) {
 
@@ -201,7 +231,7 @@ function onDeviceReady() {
       }, function () {
         currentPregunta++; //incremento la posicion de la pregunta actual (para la proxima vez que se llame)
         //muestro el boton Continuar
-        $("#content").append('<hr><a href="#" class="btn btn-success continue" style="margin-left:15px">Continuar</a>');
+        $("#content").append('<hr><div class="row"><div class="col-md-6 col-sm-6 col-xs-6"><a href="#" class="btn btn-warning goback" style="margin-left:15px">Volver</a></div> <div class="col-md-6 col-sm-6 col-xs-6"><a href="#" class="btn btn-success continue">Continuar</a></div></div>');
       });
 
     }
@@ -215,6 +245,30 @@ function onDeviceReady() {
       //cargar las encuestas disponibles
       getEncuestas();
     }
+  }
+
+  /* Controla que se haya seleccionado al menos una opcion en la pregunta actual */
+  function controlarRespuestas()
+  {
+    var hayOpcionMarcada=false;
+    $('#content').children('input').each(function () { //para cada elemento del div
+      switch ($(this).attr('type')) { //segun el tipo del elemento
+        case "radio":
+        case: "checkbox":
+        if($(this).is(':checked')){ //si es radio/checkbox y esta checked
+          hayOpcionMarcada=true;
+        }
+        break;
+        case "text": //si es text y no esta vacio
+        if($(this).val()!="")
+        {
+          hayOpcionMarcada=true;
+        }
+        break;
+      }
+    });
+
+    return hayOpcionMarcada;
   }
 
   function pendientes()
@@ -252,6 +306,14 @@ function onDeviceReady() {
     }, function() {
 
     });
+
+    //mostrar mensaje de final
+    swal({
+      title:"Encuesta",
+      text:"La encuesta se completó correctamente!",
+      type:"success"
+    },
+    function(){ });
 
   }
 
