@@ -87,7 +87,7 @@ $(document).on('click', '.goback', function () {
       text: "Desea salir de esta Encuesta?",
       type: "warning",
       showCancelButton: true,
-      closeOnConfirm: false,
+      closeOnConfirm: true,
       cancelButtonText: "No",
       confirmButtonText: "Si",
       confirmButtonColor: "#ec6c62"
