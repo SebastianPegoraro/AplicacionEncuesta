@@ -86,9 +86,18 @@ else {
 
   function getEncuestas()
   {
+    var consulta="";
     $("#title").html("Encuestas");
+    if(localStorage.getItem("tipoUsuario")=="Administrador")
+    { //es un admin, entonces traer TODAS las encuestas
+      consulta='SELECT preguntas.encuesta_id,encuestas.titulo,count(*) as cantpreguntas FROM preguntas inner join encuestas on encuestas.id=preguntas.encuesta_id group by preguntas.encuesta_id,encuestas.titulo';
+    }
+    else
+    { //no es admin, filtrar por usuario
+      consulta='SELECT preguntas.encuesta_id,encuestas.titulo,count(*) as cantpreguntas FROM encuestas_x_usuario inner join encuestas on encuestas.id=encuestas_x_usuario.encuesta_id inner join preguntas on preguntas.encuesta_id=encuestas.id where usuario_id='+localStorage.getItem("idUsuario")+' group by preguntas.encuesta_id,encuestas.titulo';
+    }
     db.transaction(function(tx) {
-      tx.executeSql('SELECT preguntas.encuesta_id,encuestas.titulo,count(*) as cantpreguntas FROM preguntas inner join encuestas on encuestas.id=preguntas.encuesta_id group by preguntas.encuesta_id,encuestas.titulo', [], function(tx, resultSet) {
+      tx.executeSql(consulta, [], function(tx, resultSet) {
 
         for(var x = 0; x < resultSet.rows.length; x++) {
           $("#content").append('<ul class="list-group mb-4 media-list"><li class="list-group-item"><a href="#" class="media shadow-15 start"  data-preguntas="'+(resultSet.rows.item(x).cantpreguntas-1)+'" data-id="'+resultSet.rows.item(x).encuesta_id+'" data-title="'+resultSet.rows.item(x).titulo+'"><div class="media-body"><h3>'+resultSet.rows.item(x).titulo+'</h3><p>'+resultSet.rows.item(x).cantpreguntas+' preguntas</p></div></a></li></ul>');
@@ -254,7 +263,7 @@ else {
     $('#content').children('input').each(function () { //para cada elemento del div
       switch ($(this).attr('type')) { //segun el tipo del elemento
         case "radio":
-        case: "checkbox":
+        case "checkbox":
         if($(this).is(':checked')){ //si es radio/checkbox y esta checked
           hayOpcionMarcada=true;
         }

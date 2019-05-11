@@ -70,11 +70,14 @@ function onDeviceReady() {
 
 /*Boton para ir para atras */
 $(document).on('click', '.goback', function () {
+  alert(currentPregunta);
 if(currentPregunta>0){
+  alert('2');
   currentPregunta--;
   getPreguntaOpciones(false);
 }
 else {
+  alert('3');
   //vaciar el div
   $("#content").empty();
   //cargar las encuestas disponibles
@@ -153,7 +156,8 @@ else {
   ************************************************/
   function getPreguntaOpciones(hayQueControlarRespuestas)
   {
-
+alert(currentPregunta);
+alert(hayQueControlarRespuestas);
     //si ya tengo cargado un listado de respuestas (es decir, NO es la primera vez que
   // se ejecuta este método), tengo que controlar que se haya marcado al menos una opcion
   if((currentPregunta>0)&&(hayQueControlarRespuestas))
@@ -240,7 +244,7 @@ else {
       }, function () {
         currentPregunta++; //incremento la posicion de la pregunta actual (para la proxima vez que se llame)
         //muestro el boton Continuar
-        $("#content").append('<hr><div class="row"><div class="col-md-6 col-sm-6 col-xs-6"><a href="#" class="btn btn-warning goback" style="margin-left:15px">Volver</a></div> <div class="col-md-6 col-sm-6 col-xs-6"><a href="#" class="btn btn-success continue">Continuar</a></div></div>');
+        $("#content").append('<hr><a href="#" class="btn btn-warning goback" style="margin-left:15px">Volver</a> <a href="#" class="btn btn-success continue float-right" style="margin-right:15px">Continuar</a>');
       });
 
     }
@@ -265,6 +269,7 @@ else {
         case "radio":
         case "checkbox":
         if($(this).is(':checked')){ //si es radio/checkbox y esta checked
+          alert('1');
           hayOpcionMarcada=true;
         }
         break;
@@ -276,7 +281,7 @@ else {
         break;
       }
     });
-
+alert(hayOpcionMarcada);
     return hayOpcionMarcada;
   }
 
