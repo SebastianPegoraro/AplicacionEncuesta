@@ -70,14 +70,14 @@ function onDeviceReady() {
 
 /*Boton para ir para atras */
 $(document).on('click', '.goback', function () {
-  alert(currentPregunta);
+  //alert(currentPregunta);
 if(currentPregunta>1){
-  alert('2');
+//  alert('2');
   currentPregunta--;
   getPreguntaOpciones(false);
 }
 else {
-  alert('3');
+  //alert('3');
   //vaciar el div
   $("#content").empty();
   //cargar las encuestas disponibles
@@ -156,8 +156,8 @@ else {
   ************************************************/
   function getPreguntaOpciones(hayQueControlarRespuestas)
   {
-alert(currentPregunta);
-alert(hayQueControlarRespuestas);
+//alert(currentPregunta);
+//alert(hayQueControlarRespuestas);
     //si ya tengo cargado un listado de respuestas (es decir, NO es la primera vez que
   // se ejecuta este método), tengo que controlar que se haya marcado al menos una opcion
   if((currentPregunta>0)&&(hayQueControlarRespuestas))
@@ -178,15 +178,15 @@ alert(hayQueControlarRespuestas);
     //guardar resultados de las respuestas si ya pasé la primer pregunta
     if(currentPregunta>0)
     {
-      $('#content').children('input').each(function () { //para cada elemento del div
-        switch ($(this).attr('type')) { //segun el tipo del elemento
+        $('#container input').each(function () { //para cada elemento del div
+        switch ($(this).prop('type')) { //segun el tipo del elemento
           case "radio":
-          if($(this).is(':checked')){ //si es radio y esta checked
+          if($(this).prop('checked')){ //si es radio y esta checked
             arrayResultados.push({eleccion_id : $(this).data("eleccion"), tipo_id : $(this).data("clase"), pregunta_id: $(this).data("pregunta"), estado:'1'});
           }
           break;
           case "checkbox":
-          if($(this).is(':checked')){ //si es checkbox y esta checked
+          if($(this).prop('checked')){ //si es checkbox y esta checked
             arrayResultados.push({eleccion_id : $(this).data("eleccion"), tipo_id : $(this).data("clase"), pregunta_id: $(this).data("pregunta"), estado:'1'});
           }
           break;
@@ -244,7 +244,7 @@ alert(hayQueControlarRespuestas);
       }, function () {
         currentPregunta++; //incremento la posicion de la pregunta actual (para la proxima vez que se llame)
         //muestro el boton Continuar
-        $("#content").append('<hr><a href="#" class="btn btn-warning goback" style="margin-left:15px">Volver</a> <a href="#" class="btn btn-success continue float-right" style="margin-right:15px">Continuar</a>');
+        $("#content").append('<hr><a href="#" class="btn btn-warning goback" style="margin-left:15px">Volver</a> <a href="#" class="btn btn-success continue float-right">Continuar</a>');
       });
 
     }
@@ -264,12 +264,12 @@ alert(hayQueControlarRespuestas);
   function controlarRespuestas()
   {
     var hayOpcionMarcada=false;
-    $('#content').children('input').each(function () { //para cada elemento del div
-      switch ($(this).attr('type')) { //segun el tipo del elemento
+  $('#container input').each(function () { //para cada elemento del div
+      switch ($(this).prop('type')) { //segun el tipo del elemento
         case "radio":
         case "checkbox":
         if($(this).prop('checked')){ //si es radio/checkbox y esta checked
-          alert('1');
+          //alert('1');
           hayOpcionMarcada=true;
         }
         break;
@@ -281,7 +281,7 @@ alert(hayQueControlarRespuestas);
         break;
       }
     });
-alert(hayOpcionMarcada);
+//alert(hayOpcionMarcada);
     return hayOpcionMarcada;
   }
 

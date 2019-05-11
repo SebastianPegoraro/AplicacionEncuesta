@@ -71,7 +71,7 @@ function onDeviceReady() {
 /*Boton para ir para atras */
 $(document).on('click', '.goback', function () {
   alert(currentPregunta);
-if(currentPregunta>0){
+if(currentPregunta>1){
   alert('2');
   currentPregunta--;
   getPreguntaOpciones(false);
@@ -268,7 +268,7 @@ alert(hayQueControlarRespuestas);
       switch ($(this).attr('type')) { //segun el tipo del elemento
         case "radio":
         case "checkbox":
-        if($(this).is(':checked')){ //si es radio/checkbox y esta checked
+        if($(this).prop('checked')){ //si es radio/checkbox y esta checked
           alert('1');
           hayOpcionMarcada=true;
         }

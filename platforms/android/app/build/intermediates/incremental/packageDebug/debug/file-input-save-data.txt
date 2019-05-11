@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Sat May 11 02:13:40 ART 2019
+#Sat May 11 02:24:08 ART 2019
 5.base=C\:\\xampp\\htdocs\\AplicacionEncuesta\\platforms\\android\\app\\build\\intermediates\\assets\\debug
 42.base=C\:\\xampp\\htdocs\\AplicacionEncuesta\\platforms\\android\\app\\build\\intermediates\\assets\\debug
 22.path=lib/armeabi-v7a/libsqlc-native-driver.so
