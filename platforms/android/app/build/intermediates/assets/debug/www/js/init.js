@@ -1,9 +1,24 @@
 var urlAPI='http://resistencia.gob.ar/appencuesta/';
-
+var db=null;
 mensaje("Conectando al servidor");
 document.addEventListener("deviceready", onDeviceReady, false);
 
 function onDeviceReady() {
+ db = window.sqlitePlugin.openDatabase({ name: 'encuesta.db', location: 'default', androidDatabaseProvider: 'system', androidLockWorkaround: 1 }, function (db) {
+  
+  db.transaction(function(tx) {
+      tx.executeSql('SELECT count(*) AS mycount FROM usuarios', [], function(tx, rs) {
+        //mensaje("filas: "+rs.rows.item(0).mycount);
+        if(rs.rows.item(0).mycount=='0')
+        {
+          //volver al inicio si no hay usuarios cargados (OJO: bucle infinito?)
+          window.location.href="init.html";
+        }
+      }, function(tx, error) {
+        mensaje('SELECT error: ' + error.message);
+      });
+    });
+	 });
   elecciones();
   encuestas();
   opciones();
@@ -52,7 +67,7 @@ function elecciones()
 
 function encuestas()
 {
-  var db = window.sqlitePlugin.openDatabase({ name: 'encuesta.db', location: 'default' }, function (db) {
+ 
 
     $.ajax({
       url: urlAPI+"API.php?tabla=encuestas",
@@ -79,14 +94,12 @@ function encuestas()
     });
 
 
-  }, function (error) {
-    mensaje("Error abriendo BD: "+ JSON.stringify(error));
-  });
+
 }
 
 function opciones()
 {
-  var db = window.sqlitePlugin.openDatabase({ name: 'encuesta.db', location: 'default' }, function (db) {
+  //var db = window.sqlitePlugin.openDatabase({ name: 'encuesta.db', location: 'default' }, function (db) {
 
     $.ajax({
       url: urlAPI+"API.php?tabla=opciones",
@@ -113,14 +126,14 @@ function opciones()
     });
 
 
-  }, function (error) {
+  /*}, function (error) {
     mensaje("Error abriendo BD: "+ JSON.stringify(error));
-  });
+  });*/
 }
 
 function preguntas()
 {
-  var db = window.sqlitePlugin.openDatabase({ name: 'encuesta.db', location: 'default' }, function (db) {
+  //var db = window.sqlitePlugin.openDatabase({ name: 'encuesta.db', location: 'default' }, function (db) {
 
     $.ajax({
       url: urlAPI+"API.php?tabla=preguntas",
@@ -147,14 +160,14 @@ function preguntas()
     });
 
 
-  }, function (error) {
+ /* }, function (error) {
     mensaje("Error abriendo BD: "+ JSON.stringify(error));
-  });
+  });*/
 }
 
 function tipos()
 {
-  var db = window.sqlitePlugin.openDatabase({ name: 'encuesta.db', location: 'default' }, function (db) {
+  //var db = window.sqlitePlugin.openDatabase({ name: 'encuesta.db', location: 'default' }, function (db) {
 
     $.ajax({
       url: urlAPI+"API.php?tabla=tipos",
@@ -181,14 +194,14 @@ function tipos()
     });
 
 
-  }, function (error) {
+ /* }, function (error) {
     mensaje("Error abriendo BD: "+ JSON.stringify(error));
-  });
+  });*/
 }
 
 function usuarios()
 {
-  var db = window.sqlitePlugin.openDatabase({ name: 'encuesta.db', location: 'default' }, function (db) {
+  //var db = window.sqlitePlugin.openDatabase({ name: 'encuesta.db', location: 'default' }, function (db) {
 
     $.ajax({
       url: urlAPI+"API.php?tabla=usuarios",
@@ -224,14 +237,14 @@ function usuarios()
     });
 
 
-  }, function (error) {
+  /*}, function (error) {
     mensaje("Error abriendo BD: "+ JSON.stringify(error));
-  });
+  });*/
 }
 
 function encuestas_x_usuario()
 {
-  var db = window.sqlitePlugin.openDatabase({ name: 'encuesta.db', location: 'default' }, function (db) {
+  //var db = window.sqlitePlugin.openDatabase({ name: 'encuesta.db', location: 'default' }, function (db) {
 
     $.ajax({
       url: urlAPI+"API.php?tabla=encuesta_x_usuario",
@@ -256,14 +269,14 @@ function encuestas_x_usuario()
     });
 
 
-  }, function (error) {
+ /* }, function (error) {
     mensaje("Error abriendo BD: "+ JSON.stringify(error));
-  });
+  });*/
 }
 
 function respuestas()
 {
-  var db = window.sqlitePlugin.openDatabase({ name: 'encuesta.db', location: 'default' }, function (db) {
+ // var db = window.sqlitePlugin.openDatabase({ name: 'encuesta.db', location: 'default' }, function (db) {
 
     $.ajax({
       url: urlAPI+"API.php?tabla=respuestas",
@@ -288,9 +301,9 @@ function respuestas()
     });
 
 
-  }, function (error) {
+  /*}, function (error) {
     mensaje("Error abriendo BD: "+ JSON.stringify(error));
-  });
+  });*/
 }
 
 

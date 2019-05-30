@@ -6,7 +6,7 @@ document.addEventListener("deviceready", onDeviceReady, false);
 //devuelve filas, tengo que conectarme al servidor y leer los datos.
 function onDeviceReady() {
   mensaje("Comprobando datos");
-  var db = window.sqlitePlugin.openDatabase({ name: 'encuesta.db', location: 'default' }, function (db) {
+  var db = window.sqlitePlugin.openDatabase({ name: 'encuesta.db', location: 'default', androidDatabaseProvider: 'system', androidLockWorkaround: 1 }, function (db) {
     //crear las tablas si no existen
     db.executeSql('CREATE TABLE  elecciones (id INTEGER,descripcion)');
     db.executeSql('CREATE TABLE  encuestas (id INTEGER,titulo,fecha_inicio,fecha_cierre,fecha_creacion)');
