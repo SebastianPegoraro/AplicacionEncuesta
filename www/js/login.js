@@ -4,7 +4,7 @@ var db = null;
 document.addEventListener("deviceready", onDeviceReady, false);
 
 function onDeviceReady() {
-db = window.sqlitePlugin.openDatabase({ name: 'encuesta.db', location: 'default' }, function (db) {
+db = window.sqlitePlugin.openDatabase({ name: 'encuesta.db', location: 'default', androidDatabaseProvider: 'system', androidLockWorkaround: 1 }, function (db) {
 }, function (error) {
     alert('Open database ERROR: ' + JSON.stringify(error));
 });
