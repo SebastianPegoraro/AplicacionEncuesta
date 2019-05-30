@@ -12,7 +12,7 @@ document.addEventListener("deviceready", onDeviceReady, false);
 function onDeviceReady() {
   $("#title").html("Encuestas");
   var consulta="";
-  db = window.sqlitePlugin.openDatabase({ name: 'encuesta.db', location: 'default' }, function (db) {
+  db = window.sqlitePlugin.openDatabase({ name: 'encuesta.db', location: 'default', androidDatabaseProvider: 'system', androidLockWorkaround: 1 }, function (db) {
     db.transaction(function(tx) {
       if(localStorage.getItem("tipoUsuario")=="Administrador")
       { //es un admin, entonces traer TODAS las encuestas
