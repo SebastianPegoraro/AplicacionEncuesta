@@ -250,7 +250,7 @@ function getPreguntaOpciones(hayQueControlarRespuestas)
               $("#content").append('<div class="pretty p-default p-round p-smooth"  style="margin-left:35px"><input type="radio" name="radio1" id="option'+resultSet.rows.item(x).id+'" value="'+resultSet.rows.item(x).id+'" data-pregunta="'+arrayPreguntas[currentPregunta].id+'" data-eleccion="'+resultSet.rows.item(x).id+'" data-clase="'+resultSet.rows.item(x).idclase+'" /><div class="state p-success"><label>'+resultSet.rows.item(x).descripcion+'</label></div></div><br><br>');
               break;
               case 'text':
-              $("#content").append('<div class="form-group" style="font-size: 15px;"><label for="option'+resultSet.rows.item(x).id+'">'+resultSet.rows.item(x).descripcion+'</label><input type="text" class="form-control" id="option'+resultSet.rows.item(x).id+'" data-pregunta="'+arrayPreguntas[currentPregunta].id+'" data-eleccion="'+resultSet.rows.item(x).id+'" data-clase="'+resultSet.rows.item(x).idclase+'"></div>');
+              $("#content").append('<div class="form-group" style="font-size: 15px;"><input type="text" class="form-control" id="option'+resultSet.rows.item(x).id+'" data-pregunta="'+arrayPreguntas[currentPregunta].id+'" data-eleccion="'+resultSet.rows.item(x).id+'" data-clase="'+resultSet.rows.item(x).idclase+'" placeholder="'+resultSet.rows.item(x).descripcion+'"></div>');
               break;
             }
 
