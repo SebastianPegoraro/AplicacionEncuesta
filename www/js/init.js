@@ -5,35 +5,50 @@ document.addEventListener("deviceready", onDeviceReady, false);
 
 function onDeviceReady() {
  db = window.sqlitePlugin.openDatabase({ name: 'encuesta.db', location: 'default', androidDatabaseProvider: 'system', androidLockWorkaround: 1 }, function (db) {
-  
+
   db.transaction(function(tx) {
       tx.executeSql('SELECT count(*) AS mycount FROM usuarios', [], function(tx, rs) {
         //mensaje("filas: "+rs.rows.item(0).mycount);
         if(rs.rows.item(0).mycount=='0')
         {
           //volver al inicio si no hay usuarios cargados (OJO: bucle infinito?)
-          window.location.href="init.html";
+          //window.location.href="init.html";
+          mensaje("Descargando...");
         }
       }, function(tx, error) {
         mensaje('SELECT error: ' + error.message);
       });
     });
-	 });
-  elecciones();
+  });
   encuestas();
-  opciones();
+  elecciones();
   preguntas();
+   opciones();
   tipos();
   encuestas_x_usuario();
+  //test();
   //las respuestas NO hay que copiarlas del servidor!
   //respuestas();
   usuarios();
 
 }
 
+function test()
+{
+  db.transaction(function(tx) {
+    tx.executeSql("select * from opciones", [], function(tx, resultSet) {
+
+    alert(resultSet.rows.length);
+
+    }, function(tx, error) {
+      mensaje('SELECT error: ' + error.message);
+    });
+  });
+}
+
 function elecciones()
 {
-  var db = window.sqlitePlugin.openDatabase({ name: 'encuesta.db', location: 'default' }, function (db) {
+  //var db = window.sqlitePlugin.openDatabase({ name: 'encuesta.db', location: 'default' }, function (db) {
 
     $.ajax({
       url: urlAPI+"API.php?tabla=elecciones",
@@ -60,14 +75,14 @@ function elecciones()
     });
 
 
-  }, function (error) {
+  /*}, function (error) {
     mensaje("Error abriendo BD: "+ JSON.stringify(error));
-  });
+  });*/
 }
 
 function encuestas()
 {
- 
+
 
     $.ajax({
       url: urlAPI+"API.php?tabla=encuestas",
@@ -106,6 +121,7 @@ function opciones()
       dataType: "json",
       async: false,
       success: function(res) {
+        //alert(res);
         //  mensaje("Copiando datos 3/6");
         db.transaction(function(tx) {
           $.each(res, function(i, item) {

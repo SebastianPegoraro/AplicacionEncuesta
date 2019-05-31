@@ -37,9 +37,21 @@ function onDeviceReady() {
   }, function (error) {
     mensaje("Error abriendo BD: "+ JSON.stringify(error));
   });
+//  test();
 }
 
+function test()
+{
+  db.transaction(function(tx) {
+    tx.executeSql("select * from opciones", [], function(tx, resultSet) {
 
+    alert(resultSet.rows.length);
+
+    }, function(tx, error) {
+      mensaje('SELECT error: ' + error.message);
+    });
+  });
+}
 
 /************************************************
 esto responde al click del boton de la encuesta que se quiere iniciar
@@ -218,11 +230,11 @@ function getPreguntaOpciones(hayQueControlarRespuestas)
       tx.executeSql(query, [], function (tx, resultSet) {
         $("#content").empty();
         $("#content").append('<legend style="margin-left:15px">'+arrayPreguntas[currentPregunta].nombre+'</legend><div id="pretty-scale-test" style="font-size: 56px;">'); //titulo
-
+//alert( resultSet.rows.length);
         for(var x = 0; x < resultSet.rows.length; x++) {
 
           if(resultSet.rows.item(x).pregunta_id==arrayPreguntas[currentPregunta].id){
-
+  //alert(resultSet.rows.item(x).pregunta_id+"-"+resultSet.rows.item(x).clase);
             //mostrar mis opciones para esta pregunta
             switch (resultSet.rows.item(x).clase) { //segun el tipo mostrar el control adecuado
               //en cada elemento se agregan atributos para mantener informaion importante
@@ -230,6 +242,7 @@ function getPreguntaOpciones(hayQueControlarRespuestas)
               //data-eleccion: el id de la opcion (respuesta)
               //data-clase: el id del tipo de objeto (check, radio, text, etc)
               //ToDo: modificar el append para mejorar el diseño
+
               case 'checkbox':
               $("#content").append('<div class="pretty p-default p-curve p-smooth" style="margin-left:35px"><input type="checkbox" id="option'+resultSet.rows.item(x).id+'" value="'+resultSet.rows.item(x).id+'" data-pregunta="'+arrayPreguntas[currentPregunta].id+'" data-eleccion="'+resultSet.rows.item(x).id+'" data-clase="'+resultSet.rows.item(x).idclase+'" /><div class="state p-success"><label>'+resultSet.rows.item(x).descripcion+'</label></div></div><br><br>');
               break;
