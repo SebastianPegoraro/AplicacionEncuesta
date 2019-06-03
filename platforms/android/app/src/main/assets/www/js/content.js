@@ -6,6 +6,7 @@ var currentEncuesta=0; //en que encuesta estoy ahora
 var tituloEncuesta=""; //x=(-b±√b²-4ac)/2a (?)
 var arrayPreguntas = new Array(); //array con las preguntas que contiene la encuesta seleccionada
 var arrayResultados  = new Array(); //array donde voy guardando las respuestas que se eligen en cada pregunta
+var vuelvoAtras = false; //flag para indicar si estoy volviendo para atras
 
 document.addEventListener("deviceready", onDeviceReady, false);
 //esto es el "load" de la pagina. cargo las encuestas para este usuario
@@ -88,8 +89,10 @@ $(document).on('click', '.goback', function () {
     //tengo que restar 2 numeros porque el contador de preguntas
     //va uno adelantado respecto a la pregunta actual
     currentPregunta=currentPregunta-2;
+    vuelvoAtras=true;
     //cargo las respuestas para la pregunta, no hay que controlar si hay respuestas marcadas
     getPreguntaOpciones(false);
+    vuelvoAtras=false;
   }
   else {
     //si estoy en la primer pregunta, tengo que preguntar si quiero salir
@@ -198,7 +201,7 @@ function getPreguntaOpciones(hayQueControlarRespuestas)
   }
 
   //guardar resultados de las respuestas en el array si ya pasé la primer pregunta
-  if(currentPregunta>0)
+  if((currentPregunta>0) && (!vuelvoAtras))
   {
     $('#content input').each(function () { //para cada elemento del div
       switch ($(this).prop('type')) { //segun el tipo del elemento
